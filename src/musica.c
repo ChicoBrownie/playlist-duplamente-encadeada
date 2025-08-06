@@ -44,10 +44,16 @@ Musica criarMusicaUsuario() {
         lerString("Adicionar mais um estilo? (s/n): ", resp, sizeof(resp));
     } while (resp[0] == 's' || resp[0] == 'S');
 
-    printf("Duração (minutos): ");
-    scanf("%d", &m.duracao.min); getchar();
-    printf("Duração (segundos): ");
-    scanf("%d", &m.duracao.seg); getchar();
+    printf("Duração (min seg): ");
+    int min, seg;
+    if (fgets(buffer, sizeof(buffer), stdin)) {
+        sscanf(buffer, "%d %d", &min, &seg);
+        m.duracao.min = min;
+        m.duracao.seg = seg;
+    } else {
+        m.duracao.min = 0;
+        m.duracao.seg = 0;
+    }
 
     m.ant = m.prox = NULL;
     return m;
